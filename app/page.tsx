@@ -11,6 +11,7 @@ import {
   Download,
   GraduationCap,
   Briefcase,
+  ExternalLink,   // ← adiciona esta linha
 } from "lucide-react";
 
 import { ReactNode, ComponentType } from "react";
@@ -70,11 +71,13 @@ const ProjectCard = ({
   tech,
   description,
   github,
+  demo,
 }: {
   title: string;
   tech: string;
   description: string;
   github: string;
+  demo?: string;
 }) => (
   <div className="group relative p-8 bg-[#111111] border border-[#222222] rounded-2xl hover:bg-[#151515] transition-all duration-300 overflow-hidden">
     <div className="flex justify-between items-start mb-6">
@@ -82,27 +85,38 @@ const ProjectCard = ({
         <Code2 className="w-6 h-6 text-blue-500" />
       </div>
 
-      <Link
-        href={github}
-        target="_blank"
-        aria-label={`Open ${title} GitHub repository`}
-      >
-        <Github className="w-5 h-5 text-slate-600 hover:text-white transition-colors" />
-      </Link>
+      <div className="flex items-center gap-3">
+        {demo && (
+          <Link href={demo} target="_blank" aria-label={`Open ${title} live demo`}>
+            <ExternalLink className="w-5 h-5 text-slate-600 hover:text-blue-400 transition-colors" />
+          </Link>
+        )}
+        <Link href={github} target="_blank" aria-label={`Open ${title} GitHub repository`}>
+          <Github className="w-5 h-5 text-slate-600 hover:text-white transition-colors" />
+        </Link>
+      </div>
     </div>
 
     <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-
-    <p className="text-xs font-mono text-blue-500/80 mb-4 uppercase tracking-widest">
-      {tech}
-    </p>
-
+    <p className="text-xs font-mono text-blue-500/80 mb-4 uppercase tracking-widest">{tech}</p>
     <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
+
+    {demo && (
+      <div className="mt-4">
+        <Link
+          href={demo}
+          target="_blank"
+          className="inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-blue-500 hover:text-blue-400 transition-colors border-b border-blue-500/30 pb-0.5"
+        >
+          <ExternalLink className="w-3 h-3" />
+          Live Demo
+        </Link>
+      </div>
+    )}
 
     <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-500 group-hover:w-full transition-all duration-500"></div>
   </div>
 );
-
 // ---------- Main ----------
 
 export default function Portfolio() {
@@ -278,11 +292,13 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-2 gap-4">
             <TechCard title="Java" icon={Server} />
-            <TechCard title="OOP" icon={Code2} />
+            <TechCard title="Spring Boot" icon={Server} />
             <TechCard title="SQL" icon={Database} />
+            <TechCard title="PostgreSQL" icon={Database} />
+            <TechCard title="Docker" icon={Code2} />
             <TechCard title="Git & GitHub" icon={Github} />
+            <TechCard title="REST APIs" icon={Code2} />
             <TechCard title="HTML & CSS" icon={Code2} />
-            <TechCard title="PostgreSQL (Learning)" icon={Database} />
           </div>
         </div>
       </Section>
@@ -292,21 +308,28 @@ export default function Portfolio() {
       <Section id="projects" title="Projects">
         <div className="grid md:grid-cols-2 gap-8">
           <ProjectCard
-            title="Portfolio Website"
-            tech="Next.js • TypeScript • Tailwind CSS"
-            description="Professional portfolio website developed to showcase technical profile and personal projects."
-            github="https://github.com/davidws-dev"
-          />
+            title="URL Shortener API"
+            tech="Spring Boot • Java 17 • PostgreSQL • Docker • Railway"
+            description="REST API for URL shortening with redirect, access tracking and optional expiration. Includes live demo page and auto-generated Swagger documentation. Deployed on Railway with PostgreSQL."
+            github="https://github.com/davidws-dev/url-shortener-api"
+            demo="https://url-shortener-api-production-d27f.up.railway.app"
+    />
 
-          <ProjectCard
-            title="Task Management API"
-            tech="Java • SQL • OOP"
-            description="Backend application focused on task management, object-oriented programming and database integration."
-            github="https://github.com/davidws-dev"
-          />
-        </div>
-      </Section>
+        <ProjectCard
+        title="Portfolio Website"
+        tech="Next.js • TypeScript • Tailwind CSS"
+        description="Professional portfolio website developed to showcase technical profile and personal projects."
+        github="https://github.com/davidws-dev"
+    />
 
+        <ProjectCard
+          title="Task Management API"
+          tech="Java • SQL • OOP"
+          description="Backend application focused on task management, object-oriented programming and database integration."
+          github="https://github.com/davidws-dev"
+    />
+  </div>
+</Section>
       {/* Education */}
 
       <Section id="education" title="Education">
