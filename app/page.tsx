@@ -405,11 +405,11 @@ export default function Portfolio() {
 
           <div className="flex flex-col md:flex-row justify-center gap-8 pt-4">
             <a
-              href="mailto:hello@davidws.pt"
+              href="mailto:davidwshello@gmail.com"
               className="flex items-center justify-center gap-3 text-slate-300 hover:text-blue-500 transition-colors uppercase text-[11px] tracking-widest font-bold"
             >
               <Mail className="w-4 h-4" />
-              hello@davidws.pt
+                davidwshello@gmail.com
             </a>
 
             <Link
